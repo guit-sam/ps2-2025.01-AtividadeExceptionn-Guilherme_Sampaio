@@ -70,7 +70,11 @@ public class UserInterface {
 
     private void withdraw() {
         System.out.print("\nInforme o valor a ser sacado: ");
+    
         double value = readValue();
+        if (deposit(value)>value){
+            throw new InsufficientFoundsException("Valor tentado para saque:" + value + "Saldo atual:" + deposit(value));
+        }
         account.withdraw(value); // pode dar problema
         System.out.println("Saque realizado com sucesso");
     }

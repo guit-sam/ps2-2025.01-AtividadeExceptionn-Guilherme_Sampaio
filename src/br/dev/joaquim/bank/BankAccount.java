@@ -29,6 +29,7 @@ public class BankAccount {
   public void deposit(double value) {
 
     if (value < 0) {
+  
       throw new IllegalArgumentException("O valor precisa ser positivo, foi informado o valor R$ " + value);
     }
 
@@ -38,10 +39,11 @@ public class BankAccount {
   public void withdraw(double value) {
 
     if (value < 0) {
-      throw new IllegalArgumentException("O valor precisa ser positivo, foi informado o valor R$ " + value);
+      throw new InsufficientFoundsException("O valor precisa ser positivo, foi informado o valor R$ " + value);
     }
 
     if (value > this.balance) {
+   
       // Não deveria ser assim, não pode ter print a classe
       System.out.println("O valor R$ " + value + " é superior ao saldo [R$ " + this.balance + "]");
     }
