@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import br.dev.joaquim.bank.BankAccount;
+import br.dev.joaquim.bank.InsufficientFoundsException;
 
 public class UserInterface {
     private Scanner input = new Scanner(System.in);
@@ -28,12 +29,12 @@ public class UserInterface {
         System.out.print("opção > ");
     }
 
-    public void start() {
+    public void start() throws InsufficientFoundsException {
         welcome();
         if (account == null)
             return;
 
-        while (true) {
+        while (true)  {
             showMenu();
             try {
                 int choice = readOption();
@@ -44,8 +45,8 @@ public class UserInterface {
                     case 2:
                         deposit();
                         break;
-                    case 3:
-                        withdraw(); // pode dar problema
+                    case 3 :
+                        withdraw() ; // pode dar problema
                         break;
                     case 4:
                         System.out.println("Até a próxima.");
@@ -67,15 +68,20 @@ public class UserInterface {
         account.deposit(value);
         System.out.println("Desposito realizado com sucesso.");
     }
-
-    private void withdraw() {
+ /**  
+     * @param saldoAtual variavél criada para armazenar o valor do depósito 
+     * @throws InsufficientFoundsException e aqui o motivo da exception
+     */
+    private void withdraw() throws InsufficientFoundsException {
         System.out.print("\nInforme o valor a ser sacado: ");
-    
         double value = readValue();
-        if (deposit(value)>value){
-            throw new InsufficientFoundsException("Valor tentado para saque:" + value + "Saldo atual:" + deposit(value));
-        }
-        account.withdraw(value); // pode dar problema
+        double  saldoAtual = account.getBalance();
+
+        if (saldoAtual<value){
+            throw new InsufficientFoundsException("Valor tentado para saque:" + value + "||"+ "Saldo atual:" + saldoAtual);
+        }// pode dar problema
+
+        account.withdraw(value); 
         System.out.println("Saque realizado com sucesso");
     }
 

@@ -7,8 +7,13 @@ public class BankAccount {
 
   public BankAccount() {
   }
-
-  public BankAccount(int accountNumber, double balance, String accountHolderName) {
+ /**
+     * explica o construtor
+     * @param accountNumber Numéro gerado randomicamente para identificação do cliente 
+     * @param balance Valor armazenado na conta bancária
+     * @throws InsufficientFoundsException gera caso a tentativa de saque for maior que o dinheiro depositado
+     */
+  public BankAccount(int accountNumber, double balance, String accountHolderName)  {
     this.accountNumber = accountNumber;
     this.balance = balance;
     this.accountHolderName = accountHolderName;
@@ -39,13 +44,13 @@ public class BankAccount {
   public void withdraw(double value) {
 
     if (value < 0) {
-      throw new InsufficientFoundsException("O valor precisa ser positivo, foi informado o valor R$ " + value);
+      throw new IllegalArgumentException("O valor precisa ser positivo, foi informado o valor R$ " + value);
     }
 
     if (value > this.balance) {
    
       // Não deveria ser assim, não pode ter print a classe
-      System.out.println("O valor R$ " + value + " é superior ao saldo [R$ " + this.balance + "]");
+      System.out.println("O valor R$ " + value + " é superior ao saldo [R$ " + balance + "]");
     }
 
     this.balance -= value;

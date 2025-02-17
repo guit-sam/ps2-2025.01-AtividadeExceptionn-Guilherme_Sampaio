@@ -1,5 +1,6 @@
+package br.dev.joaquim.bank;
 public class InsufficientFoundsException extends Exception {
- public InsufficientFoundsException(string mensagem){
+ public InsufficientFoundsException(String mensagem){
     super(mensagem);
  }
 }
